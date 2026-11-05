@@ -161,9 +161,84 @@ export const mockProdutos: Produto[] = [
 export const mockMesas: Mesa[] = Array.from({ length: 12 }, (_, i) => ({
   id: `m${i + 1}`,
   numero: i + 1,
-  status: i === 2 ? 'ocupada' : 'livre',
+  status: i === 2 ? 'chamando' : i === 4 ? 'fechando' : i === 0 ? 'ocupada' : 'livre',
   session_token: `token_mesa_${String(i + 1).padStart(2, '0')}`,
-  comanda_atual_id: i === 2 ? 'cmd_03' : null,
+  comanda_atual_id: i === 2 || i === 4 || i === 0 ? `cmd_${i + 1}` : null,
   criado_em: new Date().toISOString(),
   atualizado_em: new Date().toISOString(),
 }));
+
+export const mockChamadosIniciais = [
+  {
+    id: 'ch_01',
+    mesa_id: 'm3',
+    motivo: 'gelo_limao' as const,
+    status: 'pendente' as const,
+    criado_em: new Date(Date.now() - 1000 * 60 * 2).toISOString(),
+    atendido_em: null,
+    mesa: mockMesas[2],
+  },
+  {
+    id: 'ch_02',
+    mesa_id: 'm5',
+    motivo: 'garcom' as const,
+    status: 'pendente' as const,
+    criado_em: new Date(Date.now() - 1000 * 60 * 5).toISOString(),
+    atendido_em: null,
+    mesa: mockMesas[4],
+  },
+];
+
+export const mockPedidosIniciais = [
+  {
+    id: 'ped_init_01',
+    comanda_id: 'cmd_01',
+    mesa_id: 'm1',
+    idempotency_key: 'idemp_init_01',
+    status: 'pendente_garcom' as const,
+    observacao: 'Carne bem tostada, caprichar no molho',
+    criado_em: new Date(Date.now() - 1000 * 60 * 3).toISOString(),
+    atualizado_em: new Date().toISOString(),
+    mesa: mockMesas[0],
+    itens: [
+      {
+        id: 'pi_01',
+        pedido_id: 'ped_init_01',
+        produto_id: 'p1',
+        quantidade: 2,
+        preco_unitario: 38.9,
+        notas: 'Um sem cebola',
+        criado_em: new Date().toISOString(),
+        produto: mockProdutos[0],
+        opcionais: [
+          {
+            id: 'po_01',
+            pedido_item_id: 'pi_01',
+            item_opcional_id: 'o2',
+            nome_snapshot: 'Ao Ponto da Casa',
+            preco_snapshot: 0,
+          },
+          {
+            id: 'po_02',
+            pedido_item_id: 'pi_01',
+            item_opcional_id: 'o6',
+            nome_snapshot: 'Farofa de Bacon Crocante',
+            preco_snapshot: 4.5,
+          },
+        ],
+      },
+      {
+        id: 'pi_02',
+        pedido_id: 'ped_init_01',
+        produto_id: 'p6',
+        quantidade: 2,
+        preco_unitario: 14.0,
+        notas: null,
+        criado_em: new Date().toISOString(),
+        produto: mockProdutos[5],
+        opcionais: [],
+      },
+    ],
+  },
+];
+

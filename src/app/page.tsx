@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   Zap,
   Sparkles,
+  Users,
 } from 'lucide-react';
 import { mockConfig, mockMesas } from '@/lib/mockData';
 
@@ -32,9 +33,17 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-2">
+            <Link
+              href="/garcom"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500 hover:bg-amber-600 text-zinc-950 transition-colors shadow-xs"
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span>Painel do Garçom</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Fase 2 Ativa
+              Fase 3 Ativa
             </span>
           </div>
         </div>
@@ -51,9 +60,11 @@ export default function Home() {
             Escaneie a Placa ou Escolha uma Mesa
           </h2>
           <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Selecione uma mesa abaixo para testar o fluxo completo do cliente: cardápio interativo,
-            personalização com opcionais, upsell inteligente, proteção por idempotência, pedidos em
-            tempo real e funil de avaliação.
+            Selecione uma mesa abaixo para testar o fluxo completo do cliente, ou abra o{' '}
+            <Link href="/garcom" className="font-bold underline text-amber-600 dark:text-amber-400">
+              Painel do Garçom
+            </Link>{' '}
+            para triagem de pedidos com bipes sonoros e mapa do salão em tempo real.
           </p>
         </div>
 
@@ -85,7 +96,15 @@ export default function Home() {
                     Mesa {String(mesa.numero).padStart(2, '0')}
                   </h4>
                   <div className="flex items-center justify-between mt-1 text-[11px] text-zinc-500">
-                    <span>{mesa.status === 'ocupada' ? 'Em uso' : 'Livre'}</span>
+                    <span>
+                      {mesa.status === 'ocupada'
+                        ? 'Ocupada'
+                        : mesa.status === 'chamando'
+                        ? 'Chamando'
+                        : mesa.status === 'fechando'
+                        ? 'Fechando'
+                        : 'Livre'}
+                    </span>
                     <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />
                   </div>
                 </div>
@@ -94,29 +113,35 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Recursos da Fase 2 */}
+        {/* Recursos da Fase 3 */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
           <div className="p-4 rounded-2xl bg-white border border-zinc-200/80 dark:bg-zinc-900 dark:border-zinc-800">
             <Zap className="w-5 h-5 text-amber-500 mb-2" />
-            <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Zero Aplicativo</h5>
+            <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">
+              Triagem em 1 Toque
+            </h5>
             <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed dark:text-zinc-400">
-              Acesso instantâneo via NFC ou QR Code sem necessidade de baixar app ou criar conta.
+              Botões de toque amplo para aprovar para a cozinha ou rejeitar com velocidade máxima.
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-white border border-zinc-200/80 dark:bg-zinc-900 dark:border-zinc-800">
             <ShieldCheck className="w-5 h-5 text-emerald-500 mb-2" />
-            <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Chave Anti-Duplicidade</h5>
+            <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">
+              Hardware Web Ativo
+            </h5>
             <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed dark:text-zinc-400">
-              Idempotency keys no banco evitam pedidos duplicados mesmo se o Wi-Fi oscilar.
+              Screen Wake Lock para reter a tela acesa e sintetizador sonoro Web Audio API para alertas.
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-white border border-zinc-200/80 dark:bg-zinc-900 dark:border-zinc-800">
             <Smartphone className="w-5 h-5 text-blue-500 mb-2" />
-            <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Funil QR Avalia</h5>
+            <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">
+              Pausar Pratos (Item 86)
+            </h5>
             <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed dark:text-zinc-400">
-              Notas 4-5 levam ao Google Meu Negócio; notas 1-3 abrem canal direto com o gerente.
+              Garçom pausa pratos esgotados com 1 switch, atualizando todas as mesas em tempo real.
             </p>
           </div>
         </div>
