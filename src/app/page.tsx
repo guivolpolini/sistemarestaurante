@@ -6,11 +6,10 @@ import {
   QrCode,
   UtensilsCrossed,
   ArrowRight,
-  Zap,
   Sparkles,
   Users,
   ChefHat,
-  Printer,
+  BarChart3,
 } from 'lucide-react';
 import { mockConfig, mockMesas } from '@/lib/mockData';
 
@@ -19,7 +18,7 @@ export default function Home() {
     <div className="min-h-screen bg-zinc-50 flex flex-col justify-between antialiased dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
       {/* Top Header */}
       <header className="border-b border-zinc-200/80 bg-white/80 backdrop-blur px-6 py-4 dark:border-zinc-800 dark:bg-zinc-900/80">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white flex items-center justify-center font-bold dark:bg-zinc-100 dark:text-zinc-950">
               <UtensilsCrossed className="w-5 h-5" />
@@ -27,19 +26,19 @@ export default function Home() {
             <div>
               <h1 className="font-bold text-sm tracking-tight">{mockConfig.nome}</h1>
               <p className="text-[11px] text-zinc-500 font-medium">
-                Autoatendimento & Gestão de Restaurantes
+                Autoatendimento, KDS, Salão & Gestão BI
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {/* Link Garçom */}
             <Link
               href="/garcom"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500 hover:bg-amber-600 text-zinc-950 transition-colors shadow-xs"
             >
               <Users className="w-3.5 h-3.5" />
-              <span>Garçom Salão</span>
+              <span>Garçom</span>
             </Link>
 
             {/* Link KDS Cozinha */}
@@ -48,37 +47,50 @@ export default function Home() {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-xs"
             >
               <ChefHat className="w-3.5 h-3.5" />
-              <span>KDS Cozinha</span>
+              <span>KDS</span>
+            </Link>
+
+            {/* Link Admin BI */}
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-purple-600 hover:bg-purple-700 text-white transition-colors shadow-xs"
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              <span>Admin & BI</span>
             </Link>
 
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Fase 4 Ativa
+              Fase 5 Ativa
             </span>
           </div>
         </div>
       </header>
 
       {/* Hero & Seletor de Mesas */}
-      <main className="max-w-5xl mx-auto px-6 py-10 flex-1 flex flex-col justify-center space-y-8">
-        <div className="text-center max-w-xl mx-auto space-y-3">
+      <main className="max-w-6xl mx-auto px-6 py-10 flex-1 flex flex-col justify-center space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
             <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span>Simulador de Autoatendimento & Produção</span>
+            <span>Sistema Completo para Restaurantes 360°</span>
           </div>
           <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">
-            Central de Autoatendimento e Produção
+            Central de Autoatendimento, Produção & Gestão
           </h2>
           <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Selecione uma mesa para fazer pedidos como cliente, use o{' '}
+            Selecione uma mesa abaixo para o fluxo do cliente, abra o{' '}
             <Link href="/garcom" className="font-bold underline text-amber-600 dark:text-amber-400">
               Painel do Garçom
             </Link>{' '}
-            para triagem, ou abra o{' '}
+            para triagem, o{' '}
             <Link href="/kds" className="font-bold underline text-blue-600 dark:text-blue-400">
               KDS da Cozinha
             </Link>{' '}
-            para visão Kanban e impressão térmica de comandas.
+            para produção, ou o{' '}
+            <Link href="/admin" className="font-bold underline text-purple-600 dark:text-purple-400">
+              Painel Admin & BI (/admin)
+            </Link>{' '}
+            para métricas, curva ABC, placas QR/NFC e cardápio.
           </p>
         </div>
 
@@ -127,37 +139,53 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Recursos da Fase 4 */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+        {/* 4 Módulos do Sistema Completo */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-4">
           <div className="p-4 rounded-2xl bg-white border border-zinc-200/80 dark:bg-zinc-900 dark:border-zinc-800">
-            <ChefHat className="w-5 h-5 text-amber-500 mb-2" />
+            <QrCode className="w-5 h-5 text-emerald-500 mb-2" />
             <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">
-              KDS Kanban por Setor
+              Cliente Mesa (PWA)
             </h5>
             <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed dark:text-zinc-400">
-              Visão de alta visibilidade dividindo Chapa e Bar em colunas de Espera, Preparo e Pronto.
+              Cardápio interativo, seleção de ponto/adicionais, chamada de garçom e divisão de conta.
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-white border border-zinc-200/80 dark:bg-zinc-900 dark:border-zinc-800">
-            <Printer className="w-5 h-5 text-blue-500 mb-2" />
+            <Users className="w-5 h-5 text-amber-500 mb-2" />
             <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">
-              Impressão Térmica ESC/POS
+              Garçom Salão
             </h5>
             <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed dark:text-zinc-400">
-              Cupom monoespaçado formatado estritamente para 80mm/58mm via Web Print API com 1 clique.
+              Triagem de pedidos, fila de chamados, mapa de mesas e bloqueio de itens 86 esgotados.
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-white border border-zinc-200/80 dark:bg-zinc-900 dark:border-zinc-800">
-            <Zap className="w-5 h-5 text-emerald-500 mb-2" />
+            <ChefHat className="w-5 h-5 text-blue-500 mb-2" />
             <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">
-              Cronômetro de Atraso
+              KDS Cozinha & Bar
             </h5>
             <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed dark:text-zinc-400">
-              Alertas visuais cromáticos: verde (&lt;10min), amarelo (10-20min) e vermelho pulsante (&gt;20min).
+              Kanban com cronômetros visuais de urgência e impressão térmica ESC/POS de 80mm/58mm.
             </p>
           </div>
+
+          <Link
+            href="/admin"
+            className="p-4 rounded-2xl bg-white border border-zinc-200/80 hover:border-purple-500 dark:bg-zinc-900 dark:border-zinc-800 dark:hover:border-purple-400 transition-all group"
+          >
+            <BarChart3 className="w-5 h-5 text-purple-500 mb-2 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center justify-between">
+              <h5 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">
+                Admin & BI Gerencial
+              </h5>
+              <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-purple-400 transition-colors" />
+            </div>
+            <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed dark:text-zinc-400">
+              Curva ABC de pratos, faturamento, rateio de 10%, placas QR/NFC e gestão de cardápio.
+            </p>
+          </Link>
         </div>
       </main>
 
